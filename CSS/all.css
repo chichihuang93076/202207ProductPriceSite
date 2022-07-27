@@ -69,6 +69,10 @@ body {
   margin: 0 0.625rem 1.25rem 0;
 }
 
+.btn-type.active {
+  background: #f8d45a;
+}
+
 .btn-type:hover,
 .btn-type:active {
   background: #f8d45a;
