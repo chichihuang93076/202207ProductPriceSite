@@ -5,7 +5,9 @@ const productsList = document.querySelector(".showList");
 const buttonGroup = document.querySelector(".button-group");
 const search = document.querySelector(".seach-group");
 const searchData = document.querySelector(".seach-group input");
-const select = document.querySelector("select");
+const select = document.querySelector(".sort-select");
+const sortAdvanced = document.querySelector(".js-sort-advanced");
+
 let data = [];
 let filterData = [];
 let typeKind = "";
@@ -110,19 +112,19 @@ select.addEventListener("change", (e)=>{
   //console.log(e.target.value);
   switch (e.target.value) {
     case "依上價排序":
-      selectChange('上價');
+      selectChange("上價","down");
       break;
     case "依中價排序":
-      selectChange('中價');      
+      selectChange("中價","down");
       break;
     case "依下價排序":
-      selectChange('下價');
+      selectChange("下價","down");
       break;
     case "依平均價排序":
-      selectChange('平均價');      
+      selectChange("平均價","down");
       break;
     case "依交易量排序":
-      selectChange('交易量');      
+      selectChange("交易量","down");
       break;      
     default:
       console.log(e.target.value);
@@ -133,11 +135,32 @@ select.addEventListener("change", (e)=>{
 });
 
 //sort function
-function selectChange(dataField)
+function selectChange(dataField, sortCaret)
 {
   //console.log(filterData);
-  filterData.sort(function(a, b){
-    return a[dataField] - b[dataField];
-  });
+  if (sortCaret =="up"){
+    filterData.sort(function(a, b){
+      return b[dataField] - a[dataField];
+    });
+  }else {
+    filterData.sort(function(a, b){
+      return a[dataField] - b[dataField];
+    });
+  }  
   renderData(filterData);  
 }
+
+
+//進階排序
+sortAdvanced.addEventListener("click", (e)=>{
+  //console.log(e.target.nodeName);
+  if (e.target.nodeName =="I")
+  { 
+    let sortPrice = e.target.getAttribute("data-price");
+    let sortCaret = e.target.getAttribute("data-sort");
+    //console.log(`${sortPrice}--${sortCaret}`);
+    selectChange(sortPrice, sortCaret)
+  }
+
+});
+
