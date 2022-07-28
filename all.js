@@ -5,6 +5,7 @@ const productsList = document.querySelector(".showList");
 const buttonGroup = document.querySelector(".button-group");
 const search = document.querySelector(".seach-group");
 const searchData = document.querySelector(".seach-group input");
+const select = document.querySelector("select");
 let data = [];
 let filterData = [];
 let typeKind = "";
@@ -60,6 +61,7 @@ buttonGroup.addEventListener("click", (e)=>{
     SearchData(typeKind, searchData.value);
     //renderData(filterData);
   }
+  select.value ="排序篩選";
 });
 
 //搜尋資料
@@ -82,8 +84,7 @@ search.addEventListener("click",(e)=>{
 });
 
 
-function SearchData(typeKind, inputValue){
-  let filterData = [];
+function SearchData(typeKind, inputValue){  
   if (typeKind =="N04" || typeKind =="N05" || typeKind =="N06"){
     filterData = data.filter((item)=>{
       return item.種類代碼 == typeKind;
@@ -104,3 +105,39 @@ function SearchData(typeKind, inputValue){
   renderData(filterData);
 }
 
+//排序資料
+select.addEventListener("change", (e)=>{
+  //console.log(e.target.value);
+  switch (e.target.value) {
+    case "依上價排序":
+      selectChange('上價');
+      break;
+    case "依中價排序":
+      selectChange('中價');      
+      break;
+    case "依下價排序":
+      selectChange('下價');
+      break;
+    case "依平均價排序":
+      selectChange('平均價');      
+      break;
+    case "依交易量排序":
+      selectChange('交易量');      
+      break;      
+    default:
+      console.log(e.target.value);
+      console.log("Nothing");
+      break;
+  }
+
+});
+
+//sort function
+function selectChange(dataField)
+{
+  //console.log(filterData);
+  filterData.sort(function(a, b){
+    return a[dataField] - b[dataField];
+  });
+  renderData(filterData);  
+}
