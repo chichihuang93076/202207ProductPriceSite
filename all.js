@@ -57,13 +57,13 @@ buttonGroup.addEventListener("click", (e)=>{
       btnType.classList.remove("active");
     }
   }
-
+  select.value ="排序篩選";
   searchData.value ="";
   if (typeKind =="N04" || typeKind =="N05" || typeKind =="N06") {
-    SearchData(typeKind, searchData.value);
+    SearchFilterData(typeKind, searchData.value);
     //renderData(filterData);
   }
-  select.value ="排序篩選";
+  
 });
 
 //搜尋資料
@@ -81,12 +81,14 @@ search.addEventListener("click",(e)=>{
       alert("請請輸入並搜尋想比價的作物名稱^＿^");
       return;
     }
-    SearchData(typeKind, inputValue)
+    SearchFilterData(typeKind, inputValue)
+    select.value ="依交易量排序";
+    selectChange("交易量","up");
   }
 });
 
 
-function SearchData(typeKind, inputValue){  
+function SearchFilterData(typeKind, inputValue){  
   if (typeKind =="N04" || typeKind =="N05" || typeKind =="N06"){
     filterData = data.filter((item)=>{
       return item.種類代碼 == typeKind;
@@ -112,19 +114,19 @@ select.addEventListener("change", (e)=>{
   //console.log(e.target.value);
   switch (e.target.value) {
     case "依上價排序":
-      selectChange("上價","down");
+      selectChange("上價","up");
       break;
     case "依中價排序":
-      selectChange("中價","down");
+      selectChange("中價","up");
       break;
     case "依下價排序":
-      selectChange("下價","down");
+      selectChange("下價","up");
       break;
     case "依平均價排序":
-      selectChange("平均價","down");
+      selectChange("平均價","up");
       break;
     case "依交易量排序":
-      selectChange("交易量","down");
+      selectChange("交易量","up");
       break;      
     default:
       console.log(e.target.value);
