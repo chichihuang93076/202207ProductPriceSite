@@ -147,6 +147,7 @@ function selectChange(dataField, sortCaret)
       return a[dataField] - b[dataField];
     });
   }  
+  select.value =`依${dataField}排序`;
   renderData(filterData);  
 }
 
